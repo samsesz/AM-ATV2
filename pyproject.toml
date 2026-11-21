@@ -1,0 +1,22 @@
+[project]
+name = "am-at2-redes-neurais"
+version = "0.1.0"
+description = "MLP para previsão de cancelamento de clientes servida via FastAPI"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi[standard]>=0.115",
+    "joblib>=1.4",
+    "matplotlib>=3.9",
+    "pandas>=2.2",
+    "pydantic>=2.8",
+    "scikit-learn>=1.5",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29",
+    "nbconvert>=7.16",
+    "nbformat>=5.10",
+    "httpx>=0.27",
+]

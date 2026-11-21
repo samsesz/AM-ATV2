@@ -1,0 +1,72 @@
+### 1. Metadados do serviço
+GET http://127.0.0.1:8000/diagnostico/modelo
+User-Agent: Tester-Audit-Agent
+Accept: application/json
+
+### 2. Predição com perfil A (alto risco de cancelamento)
+POST http://127.0.0.1:8000/predict
+User-Agent: Tester-Audit-Agent
+Content-Type: application/json
+
+{
+  "meses_contrato": 2,
+  "cobranca_mensal": 95.5,
+  "cobranca_total": 191.0,
+  "tipo_contrato": "Month-to-month",
+  "servico_internet": "Fiber optic",
+  "forma_pagamento": "Electronic check",
+  "fatura_digital": "Yes",
+  "suporte_tecnico": "No",
+  "seguranca_online": "No"
+}
+
+### 3. Predição com perfil B (cliente fidelizado)
+POST http://127.0.0.1:8000/predict
+User-Agent: Tester-Audit-Agent
+Content-Type: application/json
+
+{
+  "meses_contrato": 60,
+  "cobranca_mensal": 60.0,
+  "cobranca_total": 3600.0,
+  "tipo_contrato": "Two year",
+  "servico_internet": "DSL",
+  "forma_pagamento": "Credit card (automatic)",
+  "fatura_digital": "No",
+  "suporte_tecnico": "Yes",
+  "seguranca_online": "Yes"
+}
+
+### 4. Entrada inválida: texto em campo numérico (esperado 422)
+POST http://127.0.0.1:8000/predict
+User-Agent: Tester-Audit-Agent
+Content-Type: application/json
+
+{
+  "meses_contrato": "invalido",
+  "cobranca_mensal": 95.5,
+  "cobranca_total": 191.0,
+  "tipo_contrato": "Month-to-month",
+  "servico_internet": "Fiber optic",
+  "forma_pagamento": "Electronic check",
+  "fatura_digital": "Yes",
+  "suporte_tecnico": "No",
+  "seguranca_online": "No"
+}
+
+### 5. Entrada inválida: valor fora dos limites e categoria inexistente (esperado 422)
+POST http://127.0.0.1:8000/predict
+User-Agent: Tester-Audit-Agent
+Content-Type: application/json
+
+{
+  "meses_contrato": 500,
+  "cobranca_mensal": -10.0,
+  "cobranca_total": 191.0,
+  "tipo_contrato": "Semanal",
+  "servico_internet": "Fiber optic",
+  "forma_pagamento": "Electronic check",
+  "fatura_digital": "Yes",
+  "suporte_tecnico": "No",
+  "seguranca_online": "No"
+}
